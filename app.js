@@ -26,15 +26,19 @@ const projects = []
 /**Aqui coloca as rotas res = request, response = response */
 app.get('/projects', (request,response) => { 
     
-    const {title, owner} = request.query;
-    
-    console.log(title);
-    console.log(owner);
+    return response.json(projects)
 
-    return response.json([
-        'Projeto 1', 
-        'projeto 2'
-    ])
+    
+
+     // const {title, owner} = request.query;
+    
+    // console.log(title);
+    // console.log(owner);
+
+    // return response.json([
+    //     'Projeto 1', 
+    //     'projeto 2'
+    // ])
 
 });
 
