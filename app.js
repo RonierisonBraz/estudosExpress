@@ -1,10 +1,10 @@
 const { response } = require('express');
 const express = require('express');//importando para o projeto
-const { uuid } = require('uuvidv4');
+const {v4:uuidv4} = require('uuid');
 
 const app = express();
 
-app.use(express.json())//serve pra ele intender que esta passando um Json
+app.use(express.json());//serve pra ele intender que esta passando um Json
 
 const projects = []
 // console.log(app);
@@ -23,13 +23,10 @@ const projects = []
  * Request body: Resto do conteudo na hora de criar ou editar um recurso
  */
 
-
-
-
 /**Aqui coloca as rotas res = request, response = response */
-app.get('/projects', (request,response) => {     
+app.get('/projects', (request,response) => { 
     
-    const {title, owner} = resquest.query;
+    const {title, owner} = request.query;
     
     console.log(title);
     console.log(owner);
@@ -42,20 +39,22 @@ app.get('/projects', (request,response) => {
 });
 
 /**Metodo POST */
-app.post('/projects', (request, response ) => {
-    
-     
-    const {title, owner} = resquest.query;
-    
-    console.log(title);
-    console.log(owner);
+app.post('/projects', (request, response) => {
+         
 
-    return response.json( [
-        'Projeto 1', 
-        'projeto 2',
-        'projeto 3'
+    const {title, owner} = request.body;
 
-    ])
+    const project = {id: uuidv4(), title, owner};
+
+    projects.push(project);//vai jogar a criação do projeto pra dentro do array
+    
+    console.log(project.id);
+    
+    return response.json(projects);//sempre retorna o projeto criado
+    
+    
+    // console.log(title);
+    // console.log(owner);
 })
 
 app.put('/projects/:id', (request, response) => {
